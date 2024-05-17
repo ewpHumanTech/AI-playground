@@ -1,0 +1,74 @@
+import plotly.graph_objs as go
+import numpy as np
+from datetime import datetime, timedelta
+import csv
+import sys
+
+def main(file_path):
+    dates = []
+    total_imis = []
+    registered_users = []
+    users_cdc1 = []
+    users_cdc2 = []
+    national_roaming = []
+    international_roaming = []
+
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file, delimiter=';')  # Specify the delimiter as semicolon
+        next(reader)  # Skip header
+        for row in reader:
+            print(row)
+
+            dates.append(row[0])
+            total_imis.append(int(row[1]))
+            registered_users.append(int(row[2]))
+            users_cdc1.append(int(row[3]))
+            users_cdc2.append(int(row[4]))
+            national_roaming.append(int(row[5]))
+            international_roaming.append(int(row[6]))
+
+    # Calculate rate of increases
+    rate_of_increase = np.gradient(registered_users)
+
+    # Extrapolate data to reach 3.4 million total IMSIs
+    target_imis = 3400000
+    while total_imis[-1] < target_imis:
+        next_date = datetime.strptime(dates[-1], "%B %d, %Y") + timedelta(days=1)
+        dates.append(next_date.strftime("%B %d, %Y"))
+        total_imis.append(total_imis[-1] + rate_of_increase[-1])
+        registered_users.append(registered_users[-1] + np.mean(rate_of_increase))
+        users_cdc1.append(users_cdc1[-1])
+        users_cdc2.append(users_cdc2[-1])
+        national_roaming.append(national_roaming[-1])
+        international_roaming.append(international_roaming[-1])
+        rate_of_increase = np.gradient(registered_users)
+
+    # Create figure
+    fig = go.Figure()
+
+    # Add traces
+    fig.add_trace(go.Scatter(x=dates, y=total_imis, mode='lines+markers', name='Total IMSI Count'))
+    fig.add_trace(go.Scatter(x=dates, y=registered_users, mode='lines+markers', name='Total Registered IMSIs'))
+    fig.add_trace(go.Scatter(x=dates, y=users_cdc1, mode='lines+markers', name='IMSIs Registered in CDC1'))
+    fig.add_trace(go.Scatter(x=dates, y=users_cdc2, mode='lines+markers', name='IMSIs Registered in CDC2'))
+    fig.add_trace(go.Scatter(x=dates, y=national_roaming, mode='lines+markers', name='IMSIs in National Roaming'))
+    fig.add_trace(go.Scatter(x=dates, y=international_roaming, mode='lines+markers', name='IMSIs in International Roaming'))
+
+    # Update layout
+    fig.update_layout(title='HSS IMSI Counts Over Time 3.4 Million Extrapolation',
+                       xaxis_title='Date',
+                       yaxis_title='Count',
+                       hovermode='x',
+                       showlegend=True)
+
+    # Show plot
+    fig.show()
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python script.py <input_file_path>")
+        sys.exit(1)
+    
+    input_file = sys.argv[1]
+    main(input_file)
+

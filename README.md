@@ -5,8 +5,9 @@ This repo is used to test Plotly capabilities for data visualization. Feel free 
 python plotdata_any.py data_file chart_title 
  ( Example : python plotdata_any.py data.csv "Awesome Apple Sales Projections" ) 
 
-## Plot Output
+## Graph Display 
 
 
-<img width="1243" alt="image" src="https://github.com/ewpHumanTech/AI-playground/assets/170042205/1b468aab-4fec-40ed-a53b-6a033a1c309b">
-
+![image](https://github.com/ewpHumanTech/AI-playground/assets/170042205/1b468aab-4fec-40ed-a53b-6a033a1c309b)
+![image](https://github.com/ewpHumanTech/AI-playground/assets/170042205/3ec186f0-8c69-46d5-9044-3bfe7d8c5f6b)
+![image](https://github.com/ewpHumanTech/AI-playground/assets/170042205/005ea0f3-4363-40d6-8e39-37c2743182d7)

@@ -19,7 +19,7 @@ def predict_future_values(df, column_name, target_value):
 
 if __name__ == "__main__":
     if len(sys.argv) != 4:
-        print("Usage: python plotextrapolate_any.py data_file chart_title target_value")
+        print("Usage: python plotextrapolate_any data_file chart_title target_value")
     else:
         data_file = sys.argv[1]
         chart_title = sys.argv[2]

@@ -1,0 +1,47 @@
+import plotly.graph_objects as go
+import pandas as pd
+import sys
+
+def predict_future_values(df, column_name, target_value):
+    # Calculate rate of increase
+    last_value = df.iloc[-1][column_name]
+    rate_of_increase = (last_value - df.iloc[0][column_name]) / len(df)
+
+    # Calculate number of days required to reach the target value
+    days_to_target = (target_value - last_value) / rate_of_increase
+
+    # Predict future dates and values
+    last_date = pd.to_datetime(df['Date'].iloc[-1])
+    future_dates = pd.date_range(start=last_date + pd.Timedelta(days=1), periods=int(days_to_target) + 1)
+    future_values = [last_value + i * rate_of_increase for i in range(1, int(days_to_target) + 2)]
+
+    return future_dates, future_values
+
+if __name__ == "__main__":
+    if len(sys.argv) != 4:
+        print("Usage: python plotdata_any.py data_file chart_title target_value")
+    else:
+        data_file = sys.argv[1]
+        chart_title = sys.argv[2]
+        target_value = float(sys.argv[3])
+
+        # Load data from CSV
+        df = pd.read_csv(data_file)
+
+        # Create traces
+        fig = go.Figure()
+
+        # Add original data
+        for col in df.columns[1:]:
+            fig.add_trace(go.Scatter(x=df['Date'], y=df[col], mode='lines+markers', name=col))
+
+            # Predict future values for each column
+            future_dates, future_values = predict_future_values(df, col, target_value)
+            fig.add_trace(go.Scatter(x=future_dates, y=future_values, mode='lines', name=f'{col} Predicted'))
+
+        fig.update_layout(title=chart_title,
+                          hovermode='x',
+                          xaxis_title='Date',
+                          yaxis_title='Count')
+        fig.show()
+

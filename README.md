@@ -6,5 +6,7 @@ python plotdata_any.py data_file chart_title
  ( Example : python plotdata_any.py data.csv "Awesome Apple Sales Projections" ) 
 
 ## Plot Output
-<img width="1239" alt="image" src="https://github.com/ewpHumanTech/AI-playground/assets/170042205/0eaa5dcf-b47d-4b70-aa7b-9e76b8f217c3">
+
+
+<img width="1243" alt="image" src="https://github.com/ewpHumanTech/AI-playground/assets/170042205/1b468aab-4fec-40ed-a53b-6a033a1c309b">
 

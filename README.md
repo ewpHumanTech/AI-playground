@@ -19,5 +19,6 @@ USAGE: python plotextrapolate_any data_file chart_title target_value key_column
 
 This script predicts future values for each column in a dataset containing time series data. It accepts a target value as input and utilizes the specified key column from the dataset to forecast when the target will be reached. Finally, it generates a plot illustrating both the original and predicted data points.
 
-![image](https://github.com/ewpHumanTech/AI-playground/assets/170042205/3e315f60-737d-4f6f-954b-0da26b6136e8)
+![image](https://github.com/ewpHumanTech/AI-playground/assets/170042205/ac4d0f8f-811b-43c2-af43-8640ba52cdf3)
+
 

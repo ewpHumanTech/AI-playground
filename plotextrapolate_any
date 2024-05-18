@@ -31,7 +31,7 @@ if __name__ == "__main__":
     Reads a CSV file containing time series data, predicts future values for each column, 
     and generates a plot using Plotly.
 
-    Usage: python plotdata_any.py data_file chart_title target_value key_column
+    Usage: python {sys.argv[0]} data_file chart_title target_value key_column
 
     Arguments:
         data_file (str): Path to the CSV file containing time series data.

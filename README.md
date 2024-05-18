@@ -2,10 +2,10 @@ Plotly Python Open Source Graphing Library Artificial Intelligence and Machine L
 This repo is used to test Plotly capabilities for data visualization. Feel free to use and provide feedback.
 
 ## Graphing Script Usage: 
-python plotdata_any.py data_file chart_title 
+python plotdata_any data_file chart_title 
  ( Example : python plotdata_any data.csv "Awesome Apple Sales Projections" ) 
 
-This script takes any CSV input data file and plots the data along with a customizable Chart title.  
+This script takes any CSV input data file and plots the data along with a customizable chart title.  
 
 ## Graph Display 
 
@@ -15,10 +15,10 @@ This script takes any CSV input data file and plots the data along with a custom
 ![image](https://github.com/ewpHumanTech/AI-playground/assets/170042205/005ea0f3-4363-40d6-8e39-37c2743182d7)
 
 ## Predictive Script Usage:
-python plotextrapolate_any.py input_file chart_title target_value
-( Example : python plotextrapolate_any input_file.csv "When we hit 3 mils in Sales" 3400000 )
+python plotextrapolate_any data_file chart_title target_value key_column
+( Example : python plotextrapolate_any input_file.csv "When will Sales reach 3.4 million" 3400000 "Total Count of Sold Apples")
 
-This script takes an additional command-line argument target_value, which is the value you want to predict reaching. It calculates the rate of increase based on the second column of input data and uses this rate to predict future values until the target value is reached. It then plots the original data along with the predicted values.
+This script predicts future values for each column in a dataset containing time series data. It accepts a target value as input and utilizes the specified key column from the dataset to forecast when the target will be reached. Finally, it generates a plot illustrating both the original and predicted data points.
 
 ![image](https://github.com/ewpHumanTech/AI-playground/assets/170042205/3e315f60-737d-4f6f-954b-0da26b6136e8)
 

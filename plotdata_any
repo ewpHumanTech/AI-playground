@@ -4,7 +4,7 @@ import sys
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Usage: python plotdata_any data_file chart_title")
+        print("Usage: python {sys.argv[0]} data_file chart_title")
     else:
         data_file = sys.argv[1]
         chart_title = sys.argv[2]
@@ -19,7 +19,7 @@ if __name__ == "__main__":
             fig.add_trace(go.Scatter(x=df['Date'], y=df[col], mode='lines+markers', name=col))
 
         fig.update_layout(title=chart_title,
-                          hovermode='x',
+ 			  hovermode='x',
                           xaxis_title='Date',
                           yaxis_title='Count')
         fig.show()

@@ -2,46 +2,90 @@ import plotly.graph_objects as go
 import pandas as pd
 import sys
 
-def predict_future_values(df, column_name, target_value):
-    # Calculate rate of increase
-    last_value = df.iloc[-1][column_name]
-    rate_of_increase = (last_value - df.iloc[0][column_name]) / len(df)
+def predict_future_values(rate_of_increase, last_value, target_value):
+    """
+    Predicts future values based on the rate of increase.
 
+    Parameters:
+        rate_of_increase (float): The rate of increase.
+        last_value (float): The last observed value.
+        target_value (float): The target value to predict.
+
+    Returns:
+        list: Future values predicted based on the rate of increase.
+        int: Number of days required to reach the target value.
+    """
     # Calculate number of days required to reach the target value
-    days_to_target = (target_value - last_value) / rate_of_increase
+    if rate_of_increase != 0:
+        days_to_target = (target_value - last_value) / rate_of_increase
+    else:
+        days_to_target = 0
 
-    # Predict future dates and values
-    last_date = pd.to_datetime(df['Date'].iloc[-1])
-    future_dates = pd.date_range(start=last_date + pd.Timedelta(days=1), periods=int(days_to_target) + 1)
+    # Predict future values until the target is reached
     future_values = [last_value + i * rate_of_increase for i in range(1, int(days_to_target) + 2)]
 
-    return future_dates, future_values
+    return future_values, int(days_to_target) + 1
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        print("Usage: python plotextrapolate_any data_file chart_title target_value")
+    """
+    Reads a CSV file containing time series data, predicts future values for each column, 
+    and generates a plot using Plotly.
+
+    Usage: python plotdata_any.py data_file chart_title target_value key_column
+
+    Arguments:
+        data_file (str): Path to the CSV file containing time series data.
+        chart_title (str): Title of the chart.
+        target_value (float): The value to which the key column should reach.
+        key_column (str): The name of the key column that determines when to stop predicting future values.
+    """
+    if len(sys.argv) != 5:
+        print(f"Usage: {sys.argv[0]} data_file chart_title target_value key_column")
     else:
         data_file = sys.argv[1]
         chart_title = sys.argv[2]
         target_value = float(sys.argv[3])
+        key_column = sys.argv[4]
 
         # Load data from CSV
         df = pd.read_csv(data_file)
 
+        # Convert 'Date' column to datetime format
+        df['Date'] = pd.to_datetime(df['Date'])
+
         # Create traces
         fig = go.Figure()
 
-        # Add original data
+        # Store days to target for each column
+        days_to_target_dict = {}
+
+        # Add original data and predict future values
         for col in df.columns[1:]:
+            # Calculate rate of increase for each column
+            last_value = df[col].iloc[-1]
+            first_value = df[col].iloc[0]
+            total_days = len(df)
+            rate_of_increase = (last_value - first_value) / total_days
+
             fig.add_trace(go.Scatter(x=df['Date'], y=df[col], mode='lines+markers', name=col))
 
-            # Predict future values for each column
-            future_dates, future_values = predict_future_values(df, col, target_value)
+            # Predict future values for each column using the calculated rate of increase
+            future_values, days_to_target = predict_future_values(rate_of_increase, last_value, target_value)
+            future_dates = pd.date_range(start=pd.to_datetime(df['Date'].iloc[-1]) + pd.Timedelta(days=1), periods=len(future_values))
             fig.add_trace(go.Scatter(x=future_dates, y=future_values, mode='lines', name=f'{col} Predicted'))
 
+            # Store days to target for each column
+            days_to_target_dict[col] = days_to_target
+
+        # Get the days to target for the specified key column
+        key_column_days_to_target = days_to_target_dict[key_column]
+
+        # Update x-axis range based on the key column reaching target
         fig.update_layout(title=chart_title,
                           hovermode='x',
                           xaxis_title='Date',
-                          yaxis_title='Count')
+                          yaxis_title='Count',
+                          xaxis_range=[df['Date'].iloc[0], df['Date'].iloc[-1] + pd.Timedelta(days=key_column_days_to_target)])
+
         fig.show()
 

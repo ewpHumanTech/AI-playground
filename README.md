@@ -1,6 +1,6 @@
 # Exploring Plotly Python Open Source Graphing Library 
 
-Welcome. This repo is created for the purpose of testing the capabiities of Plotly's Python Open Source Graphing Library for data analysis and online visualization. 
+Welcome. This repo is created for the purpose of exploring and testing the capabiities of Plotly's Python Open Source Graphing Library for data analysis and online visualization. 
 
 ## Overview
 

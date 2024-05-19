@@ -1,5 +1,5 @@
 Plotly Python Open Source Graphing Library Artificial Intelligence and Machine Learning Charts. 
-This repo is used to test Plotly capabilities for data visualization. Feel free to use and provide feedback.
+This repo is used to test Plotly capabilities for data analysis and online visualization. Feel free to use and provide feedback.
 
 This repository contains two scripts for analyzing time series data, along with sample dataset input files. 
 
@@ -20,5 +20,8 @@ USAGE: python plotextrapolate_any data_file chart_title target_value key_column
 This script predicts future values for each column in a dataset containing time series data. It accepts a target value as input and utilizes the specified key column from the dataset to forecast when the target will be reached. Finally, it generates a plot illustrating both the original and predicted data points.
 
 ![image](https://github.com/ewpHumanTech/AI-playground/assets/170042205/ac4d0f8f-811b-43c2-af43-8640ba52cdf3)
+
+https://github.com/ewpHumanTech/AI-playground/assets/170042205/1fb076f0-50c4-4481-8a45-a623381db692
+
 
 

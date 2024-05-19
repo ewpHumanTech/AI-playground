@@ -1,10 +1,13 @@
-# Exploring Plotly Python Open Source Graphing Library 
+# Exploring Plotly Python Open Source Graphing Library
 
-Welcome. This repo is created for the purpose of exploring and testing the capabiities of Plotly's Python Open Source Graphing Library for data analysis and online visualization. 
+## Welcome
+Welcome to this repository created for the purpose of exploring and testing the capabilities of Plotly's Python Open Source Graphing Library for data analysis and online visualization.
 
 ## Overview
+This repository currently contains two Python scripts specifically designed for analyzing time series data, accompanied by sample dataset input files. Additionally, further explorations with artificial intelligence and machine learning charts, along with additional scripts, are planned for some time soon.
 
-Currently, the repository contains two Python scripts tailored for analyzing time series data, complete with sample dataset input files. Further explorations with artificial intelligence and machine learning charts, along with additional scripts, are planned for some time soon. Please feel free to utilize the scripts provided here and offer any feedback you may have.
+Please feel free to utilize the scripts provided here and offer any feedback you may have.
+
 
 ### First Script: Basic Graphing
 
